@@ -48,6 +48,8 @@ local bestTop5 = math.huge
 local trainLossArray = {}
 local trainTop1Array = {}
 local trainTop5Array = {}
+local testTop1Array = {}
+local testTop5Array = {}
 for epoch = startEpoch, opt.nEpochs do
    -- Train for a single epoch
    local trainTop1, trainTop5, trainLoss = trainer:train(epoch, trainLoader)
@@ -56,7 +58,8 @@ for epoch = startEpoch, opt.nEpochs do
    trainTop5Array[epoch] = trainTop5
    -- Run model on validation set
    local testTop1, testTop5 = trainer:test(epoch, valLoader)
-
+   testTop1Array[epoch] = testTop1
+   testTop5Array[epoch] = testTop5
    local bestModel = false
    if testTop1 < bestTop1 then
       bestModel = true
@@ -67,6 +70,8 @@ for epoch = startEpoch, opt.nEpochs do
 
    checkpoints.save(epoch, model, trainer.optimState, bestModel)
 end
-data = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
-csvigo.save{path='train.csv', data=data}
+traindata = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
+testdata = {testTop1=testTop1Array, testTop5=testTop5Array}
+csvigo.save{path='train.csv', data=traindata}
+csvigo.save{path='test.csv', data=testdata}
 print(string.format(' * Finished top1: %6.3f  top5: %6.3f', bestTop1, bestTop5))
