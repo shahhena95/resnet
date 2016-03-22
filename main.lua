@@ -46,10 +46,14 @@ local startEpoch = checkpoint and checkpoint.epoch + 1 or opt.epochNumber
 local bestTop1 = math.huge
 local bestTop5 = math.huge
 local trainLossArray = {}
+local trainTop1Array = {}
+local trainTop5Array = {}
 for epoch = startEpoch, opt.nEpochs do
    -- Train for a single epoch
    local trainTop1, trainTop5, trainLoss = trainer:train(epoch, trainLoader)
    trainLossArray[epoch] = trainLoss
+   trainTop1Array[epoch] = trainTop1
+   trainTop5Array[epoch] = trainTop5
    -- Run model on validation set
    local testTop1, testTop5 = trainer:test(epoch, valLoader)
 
@@ -63,6 +67,6 @@ for epoch = startEpoch, opt.nEpochs do
 
    checkpoints.save(epoch, model, trainer.optimState, bestModel)
 end
-data = {trainLoss=trainLossArray}
+data = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
 csvigo.save{path='train.csv', data=data}
 print(string.format(' * Finished top1: %6.3f  top5: %6.3f', bestTop1, bestTop5))
