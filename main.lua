@@ -56,6 +56,7 @@ for epoch = startEpoch, opt.nEpochs do
    trainLossArray[epoch] = trainLoss
    trainTop1Array[epoch] = trainTop1
    trainTop5Array[epoch] = trainTop5
+   print('train Loss', trainLoss)
    -- Run model on validation set
    local testTop1, testTop5 = trainer:test(epoch, valLoader)
    testTop1Array[epoch] = testTop1
@@ -68,7 +69,7 @@ for epoch = startEpoch, opt.nEpochs do
       print(' * Best model ', testTop1, testTop5)
    end
 
-   checkpoints.save(epoch, model, trainer.optimState, bestModel)
+--   checkpoints.save(epoch, model, trainer.optimState, bestModel)
 end
 traindata = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
 testdata = {testTop1=testTop1Array, testTop5=testTop5Array}
