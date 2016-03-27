@@ -68,7 +68,7 @@ for epoch = startEpoch, opt.nEpochs do
       print(' * Best model ', testTop1, testTop5)
    end
 
-   checkpoints.save(epoch, model, trainer.optimState, bestModel)
+--   checkpoints.save(epoch, model, trainer.optimState, bestModel)
 end
 traindata = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
 testdata = {testTop1=testTop1Array, testTop5=testTop5Array}
