@@ -70,8 +70,6 @@ for epoch = startEpoch, opt.nEpochs do
 
 --   checkpoints.save(epoch, model, trainer.optimState, bestModel)
 end
-traindata = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array}
-testdata = {testTop1=testTop1Array, testTop5=testTop5Array}
-csvigo.save{path='train.csv', data=traindata}
-csvigo.save{path='test.csv', data=testdata}
+data = {trainLoss=trainLossArray, trainTop1=trainTop1Array, trainTop5=trainTop5Array, testTop1=testTop1Array, testTop5=testTop5Array}
+csvigo.save{path='data.csv', data=data}
 print(string.format(' * Finished top1: %6.3f  top5: %6.3f', bestTop1, bestTop5))
