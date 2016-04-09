@@ -6,7 +6,7 @@
 --  LICENSE file in the root directory of this source tree. An additional grant
 --  of patent rights can be found in the PATENTS file in the same directory.
 --
---  ImageNet and CIFAR-10 datasets
+--  ImageNet, CIFAR-10 and CIFAR-100 datasets
 --
 
 local M = {}
